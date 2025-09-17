@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Sarees - Online Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f6f7;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffd700;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3') center/cover no-repeat;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn {
+            background: linear-gradient(to right, #ff4d4d, #ff3333);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 77, 77, 0.4);
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 15px;
+            gap: 25px;
+        }
+
+        .filters {
+            flex: 0 0 250px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            align-self: flex-start;
+        }
+
+        .filters h3 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            color: #444;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group h4 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .filter-options input {
+            cursor: pointer;
+        }
+
+        .price-range {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .price-values {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .products {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-img {
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .product-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-weight: 700;
+            color: #6a11cb;
+            font-size: 1.2rem;
+        }
+
+        .add-to-cart {
+            background: #6a11cb;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background: #2575fc;
+            transform: rotate(90deg);
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 5%;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p, .footer-section li {
+            margin-bottom: 10px;
+            color: #ecf0f1;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #3498db;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: #3498db;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .filters {
+                width: 100%;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .hero {
+                height: 300px;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .products {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-vest"></i>
+            <h1>Elegant Sarees</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Collections</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">3</span>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Discover Exquisite Handcrafted Sarees</h2>
+            <p>From traditional to contemporary, find the perfect saree for every occasion</p>
+            <button class="btn">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Filters Sidebar -->
+        <aside class="filters">
+            <h3>Filters</h3>
+            
+            <div class="filter-group">
+                <h4>Category</h4>
+                <div class="filter-options">
+                    <label>
+                        <input type="checkbox" name="category" checked> Silk Sarees
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category"> Cotton Sarees
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category"> Banarasi Sarees
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category"> Designer Sarees
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category"> Wedding Sarees
+                    </label>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <input type="range" class="price-range" min="500" max="10000" step="500" value="5000">
+                <div class="price-values">
+                    <span>₹500</span>
+                    <span>₹10000</span>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h4>Color</h4>
+                <div class="filter-options">
+                    <label>
+                        <input type="checkbox" name="color"> Red
+                    </label>
+                    <label>
+                        <input type="checkbox" name="color"> Blue
+                    </label>
+                    <label>
+                        <input type="checkbox" name="color"> Green
+                    </label>
+                    <label>
+                        <input type="checkbox" name="color"> Yellow
+                    </label>
+                    <label>
+                        <input type="checkbox" name="color"> Purple
+                    </label>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h4>Occasion</h4>
+                <div class="filter-options">
+                    <label>
+                        <input type="checkbox" name="occasion"> Wedding
+                    </label>
+                    <label>
+                        <input type="checkbox" name="occasion"> Party
+                    </label>
+                    <label>
+                        <input type="checkbox" name="occasion"> Casual
+                    </label>
+                    <label>
+                        <input type="checkbox" name="occasion"> Festival
+                    </label>
+                </div>
+            </div>
+            
+            <button class="btn" style="width: 100%; margin-top: 15px;">Apply Filters</button>
+        </aside>
+
+        <!-- Products Grid -->
+        <main class="products">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://www.chinayabanaras.com/cdn/shop/files/BSS-071_2_-LOW-RES-LOW-Chinayabanaras.jpg?v=1751377618" alt="Banarasi Silk Saree">
+                </div>
+                <div class="product-info">
+                    <h3>Banarasi Silk Saree</h3>
+                    <p>Handwoven pure silk saree with zari work</p>
+                    <div class="product-price">
+                        <span class="price">₹5,499</span>
+                        <button class="add-to-cart">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://wholetex.sgp1.cdn.digitaloceanspaces.com/full/shreejee-vol-02-kanjivaram-silk-saree-591.jpg" alt="Kanjivaram Silk Saree">
+                </div>
+                <div class="product-info">
+                    <h3>Kanjivaram Silk Saree</h3>
+                    <p>Traditional South Indian silk with golden border</p>
+                    <div class="product-price">
+                        <span class="price">₹7,299</span>
+                        <button class="add-to-cart">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://moora.in/cdn/shop/files/indigoPrism--2.webp?v=1715424498" alt="Cotton Printed Saree">
+                </div>
+                <div class="product-info">
+                    <h3>Cotton Printed Saree</h3>
+                    <p>Lightweight cotton saree with block print</p>
+                    <div class="product-price">
+                        <span class="price">₹2,199</span>
+                        <button class="add-to-cart">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://banarassilks.com/cdn/shop/products/silpa.ns-20230105-0001.jpg?v=1672931951" alt="Designer Georgette Saree">
+                </div>
+                <div class="product-info">
+                    <h3>Designer Georgette Saree</h3>
+                    <p>Contemporary designer saree with sequin work</p>
+                    <div class="product-price">
+                        <span class="price">₹3,899</span>
+                        <button class="add-to-cart">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://i.pinimg.com/736x/b5/8c/57/b58c57e6d9ea956e21bff4ca48ffa634.jpg" alt="Wedding Silk Saree">
+                </div>
+                <div class="product-info">
+                    <h3>Wedding Silk Saree</h3>
+                    <p>Heavy bridal silk saree with intricate embroidery</p>
+                    <div class="product-price">
+                        <span class="price">₹12,499</span>
+                        <button class="add-to-cart">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://hafsaad.com/cdn/shop/products/3_dc053f65-d980-40c3-8b1d-ef16a420fe23.png?v=1683096139&width=1240" alt="Organza Party Saree">
+                </div>
+                <div class="product-info">
+                    <h3>Organza Party Saree</h3>
+                    <p>Elegant party wear saree with crystal detailing</p>
+                    <div class="product-price">
+                        <span class="price">₹4,599</span>
+                        <button class="add-to-cart">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Elegant Sarees</h3>
+                <p>We bring you the finest collection of traditional and contemporary sarees from across India.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">Offers</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Fashion Street, Mumbai</p>
+                <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                <p><i class="fas fa-envelope"></i> info@elegantsarees.com</p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Elegant Sarees. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                let count = parseInt(document.querySelector('.cart-count').textContent);
+                document.querySelector('.cart-count').textContent = count + 1;
+                
+                // Animation for feedback
+                this.style.backgroundColor = '#4CAF50';
+                setTimeout(() => {
+                    this.style.backgroundColor = '#6a11cb';
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
